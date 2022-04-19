@@ -53,9 +53,9 @@ ifneq ($(PLATFORM),)
 	PLATFORM_FLAG="--platform"
 endif
 
-REGISTRY ?= gcr.io/k8s-staging-ingress-nginx
+REGISTRY ?= registry.gitlab.com/stanhu/gitlab-test-images/k8s-staging-ingress-nginx
 
-BASE_IMAGE ?= k8s.gcr.io/ingress-nginx/nginx:81c2afd975a6f9a9847184472286044d7d5296f6@sha256:a71ac64dd8cfd68341ba47dbdc4d8c2cb91325fce669875193ea0319118201b5
+BASE_IMAGE ?= registry.gitlab.com/stanhu/gitlab-test-images/k8s-staging-ingress-nginx/nginx:latest
 
 GOARCH=$(ARCH)
 
@@ -73,7 +73,7 @@ image: clean-image ## Build image for a particular arch.
 		--build-arg TARGETARCH="$(ARCH)" \
 		--build-arg COMMIT_SHA="$(COMMIT_SHA)" \
 		--build-arg BUILD_ID="$(BUILD_ID)" \
-		-t $(REGISTRY)/controller:$(TAG) rootfs
+		-t $(REGISTRY)/controller:$(TAG) rootfs -f rootfs/Dockerfile.fips
 
 .PHONY: image-chroot
 image-chroot: clean-chroot-image ## Build image for a particular arch.
