@@ -55,7 +55,7 @@ endif
 
 REGISTRY ?= registry.gitlab.com/stanhu/gitlab-test-images/k8s-staging-ingress-nginx
 
-BASE_IMAGE ?= registry.gitlab.com/stanhu/gitlab-test-images/k8s-staging-ingress-nginx/nginx:latest
+BASE_IMAGE ?= registry.gitlab.com/stanhu/gitlab-test-images/k8s-staging-ingress-nginx/nginx-fips:latest
 
 GOARCH=$(ARCH)
 
@@ -240,7 +240,7 @@ release: ensure-buildx clean
 		--build-arg COMMIT_SHA="$(COMMIT_SHA)" \
 		--build-arg BUILD_ID="$(BUILD_ID)" \
 		-t $(REGISTRY)/controller:$(TAG) rootfs
-	
+
 	@docker buildx build \
 		--no-cache \
 		--push \

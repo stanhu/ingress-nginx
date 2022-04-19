@@ -24,7 +24,7 @@ INIT_BUILDX=$(DIR)/../../hack/init-buildx.sh
 TAG ?= 0.0
 REGISTRY ?= gcr.io/k8s-staging-ingress-nginx
 
-IMAGE = $(REGISTRY)/nginx
+IMAGE = $(REGISTRY)/nginx-fips
 
 # required to enable buildx
 export DOCKER_CLI_EXPERIMENTAL=enabled
