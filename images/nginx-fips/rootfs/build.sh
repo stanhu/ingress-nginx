@@ -185,8 +185,6 @@ yum -y install \
   libyaml-devel \
   lmdb \
   lmdb-devel \
-  lua53 \
-  lua53-devel \
   make \
   mercurial \
   openssl-devel \
@@ -516,13 +514,12 @@ cd ModSecurity/
 git submodule init
 git submodule update
 
+# https://github.com/SpiderLabs/ModSecurity/issues/1909
+curl -O https://patch-diff.githubusercontent.com/raw/SpiderLabs/ModSecurity/pull/2718.diff
+patch -p1 < 2718.diff
 sh build.sh
 
-# https://github.com/SpiderLabs/ModSecurity/issues/1909#issuecomment-465926762
-sed -i '115i LUA_CFLAGS="${LUA_CFLAGS} -DWITH_LUA_JIT_2_1"' build/lua.m4
-sed -i '117i AC_SUBST(LUA_CFLAGS)' build/lua.m4
-
-./configure \
+PKG_CONFIG_PATH=/usr/local/lib/pkgconfig ./configure \
   --disable-doxygen-doc \
   --disable-doxygen-html \
   --disable-examples
