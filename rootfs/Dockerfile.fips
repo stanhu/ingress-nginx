@@ -64,7 +64,8 @@ RUN bash -xeu -c ' \
 RUN setcap    cap_net_bind_service=+ep /nginx-ingress-controller \
   && setcap -v cap_net_bind_service=+ep /nginx-ingress-controller \
   && setcap    cap_net_bind_service=+ep /usr/local/nginx/sbin/nginx \
-  && setcap -v cap_net_bind_service=+ep /usr/local/nginx/sbin/nginx
+  && setcap -v cap_net_bind_service=+ep /usr/local/nginx/sbin/nginx \
+  && ln -sf /sbin/nginx /usr/bin/nginx
 
 USER www-data
 
