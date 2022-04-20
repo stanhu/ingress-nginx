@@ -55,7 +55,7 @@ RUN yum -y install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-
     nano \
     tzdata \
     shadow-utils \
-    openssl \
+    openssl11 \
     wget \
     libmaxminddb \
   && yum clean all \

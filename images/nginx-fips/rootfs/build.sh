@@ -187,7 +187,7 @@ yum -y install \
   lmdb-devel \
   make \
   mercurial \
-  openssl-devel \
+  openssl11-devel \
   patch \
   pcre-devel \
   perl-devel \
