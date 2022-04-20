@@ -127,7 +127,10 @@ export LUA_RESTY_IPMATCHER_VERSION=211e0d2eb8bbb558b79368f89948a0bafdc23654
 # Check for recent changes: https://github.com/ElvinEfendi/lua-resty-global-throttle/compare/v0.2.0...main
 export LUA_RESTY_GLOBAL_THROTTLE_VERSION=0.2.0
 
-# Check for recent changes: https://github.com/maxmind/libmaxminddb/1.6.0...main
+# Check for recent changes: https://github.com/maxmind/geoip-api-c/compare/1.6.12...main
+export GEOIP_VERSION=1.6.12
+
+# Check for recent changes: https://github.com/maxmind/libmaxminddb/compare/1.6.0...main
 export LIBMAXMINDDB_VERSION=1.6.0
 
 export BUILD_PATH=/tmp/build
@@ -155,8 +158,6 @@ get_src()
   rm -rf "$f"
 }
 
-# add epel repo
-yum -y install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum -y update
 yum -y upgrade
 
@@ -166,39 +167,31 @@ yum -y install \
   bc \
   clang \
   cmake3 \
-  coreutils \
   curl ca-certificates \
   dos2unix \
   findutils \
   gcc \
   gcc-c++ \
   gd-devel \
-  geoip-devel \
-  git pkgconfig flex bison doxygen yajl-devel libtool autoconf libxml2-devel \
+  git pkgconfig libtool autoconf libxml2-devel \
   glibc-devel \
   gzip \
   kernel-headers \
-  libaio-devel \
   libcurl-devel \
   libedit-devel \
   libxslt-devel \
   libyaml-devel \
-  lmdb \
-  lmdb-devel \
   make \
-  mercurial \
-  openssl11-devel \
+  openssl-devel \
   patch \
   pcre-devel \
   perl-devel \
-  protobuf \
   python3 \
+  libstdc++-static \
   unzip \
   util-linux \
   wget \
   zlib-devel
-
-ln -s /usr/bin/cmake3 /usr/bin/cmake
 
 mkdir -p /etc/nginx
 
@@ -487,6 +480,17 @@ git submodule update
 cd "$BUILD_PATH"
 git clone --depth=1 https://github.com/ssdeep-project/ssdeep
 cd ssdeep/
+
+./bootstrap
+./configure
+
+make
+make install
+
+# Build geoip library
+cd "$BUILD_PATH"
+git clone --depth=1 -b $GEOIP_VERSION https://github.com/maxmind/geoip-api-c
+cd geoip-api-c
 
 ./bootstrap
 ./configure

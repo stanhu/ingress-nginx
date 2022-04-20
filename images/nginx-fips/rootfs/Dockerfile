@@ -11,14 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM amazonlinux:2 as builder
-
+FROM registry.access.redhat.com/ubi8/ubi:8.5 as builder
 COPY . /
 
 RUN /build.sh
 
 # Use a multi-stage build
-FROM amazonlinux:2
+FROM registry.access.redhat.com/ubi8/ubi:8.5
 
 ENV PATH=$PATH:/usr/local/luajit/bin:/usr/local/nginx/sbin:/usr/local/nginx/bin:/usr/local/lib:/lib64:/lib
 
@@ -38,26 +37,22 @@ RUN touch /etc/ld.so.conf.d/local_libs.conf \
 
 ARG TARGETARCH
 
-RUN yum -y install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-  && yum -y update \
+RUN yum -y update \
   && yum -y upgrade \
   && yum -y install \
     bash \
     pcre \
     zlib \
-    geoip \
     curl ca-certificates \
     patch \
     yajl \
-    lmdb \
     libxml2 \
     libyaml \
     nano \
+    openssl \
     tzdata \
     shadow-utils \
-    openssl11 \
     wget \
-    libmaxminddb \
   && yum clean all \
   && rm -rf \
     /var/cache/yum \

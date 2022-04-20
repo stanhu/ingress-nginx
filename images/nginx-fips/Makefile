@@ -21,8 +21,8 @@ DIR:=$(strip $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))))
 INIT_BUILDX=$(DIR)/../../hack/init-buildx.sh
 
 # 0.0.0 shouldn't clobber any released builds
-TAG ?= 0.0
-REGISTRY ?= gcr.io/k8s-staging-ingress-nginx
+TAG ?= latest
+REGISTRY ?= registry.gitlab.com/stanhu/gitlab-test-images/k8s-staging-ingress-nginx
 
 IMAGE = $(REGISTRY)/nginx-fips
 
