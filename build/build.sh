@@ -43,13 +43,14 @@ if [ "$missing" = true ]; then
   exit 1
 fi
 
-export CGO_ENABLED=0
+export CGO_ENABLED=1
 export GOARCH=${ARCH}
 
 TARGETS_DIR="rootfs/bin/${ARCH}"
 echo "Building targets for ${ARCH}, generated targets in ${TARGETS_DIR} directory."
 
 go build \
+  -tags boringcrypto \
   -trimpath -ldflags="-buildid= -w -s \
     -X ${PKG}/version.RELEASE=${TAG} \
     -X ${PKG}/version.COMMIT=${COMMIT_SHA} \
@@ -57,6 +58,7 @@ go build \
   -o "${TARGETS_DIR}/nginx-ingress-controller" "${PKG}/cmd/nginx"
 
 go build \
+  -tags boringcrypto \
   -trimpath -ldflags="-buildid= -w -s \
     -X ${PKG}/version.RELEASE=${TAG} \
     -X ${PKG}/version.COMMIT=${COMMIT_SHA} \
@@ -64,6 +66,7 @@ go build \
   -o "${TARGETS_DIR}/dbg" "${PKG}/cmd/dbg"
 
 go build \
+  -tags boringcrypto \
   -trimpath -ldflags="-buildid= -w -s \
     -X ${PKG}/version.RELEASE=${TAG} \
     -X ${PKG}/version.COMMIT=${COMMIT_SHA} \
