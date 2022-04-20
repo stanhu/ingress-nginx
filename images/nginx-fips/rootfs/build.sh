@@ -127,8 +127,8 @@ export LUA_RESTY_IPMATCHER_VERSION=211e0d2eb8bbb558b79368f89948a0bafdc23654
 # Check for recent changes: https://github.com/ElvinEfendi/lua-resty-global-throttle/compare/v0.2.0...main
 export LUA_RESTY_GLOBAL_THROTTLE_VERSION=0.2.0
 
-# Check for recent changes: https://github.com/maxmind/geoip-api-c/compare/1.6.12...main
-export GEOIP_VERSION=1.6.12
+# Check for recent changes: https://github.com/maxmind/geoip-api-c/compare/v1.6.12...main
+export GEOIP_VERSION=v1.6.12
 
 # Check for recent changes: https://github.com/maxmind/libmaxminddb/compare/1.6.0...main
 export LIBMAXMINDDB_VERSION=1.6.0
